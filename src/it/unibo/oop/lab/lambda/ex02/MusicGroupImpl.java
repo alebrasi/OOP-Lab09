@@ -1,5 +1,8 @@
 package it.unibo.oop.lab.lambda.ex02;
 
+import static java.util.stream.Collectors.toList;
+import static org.junit.jupiter.api.DynamicTest.stream;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,7 +45,9 @@ public final class MusicGroupImpl implements MusicGroup {
 
     @Override
     public Stream<String> albumNames() {
-        return null;
+        List<String> tmp = this.albums.keySet().stream().collect(toList());
+        Collections.sort(tmp, (String s1, String s2) -> s1.compareTo(s2));
+        return tmp.stream();
     }
 
     @Override
