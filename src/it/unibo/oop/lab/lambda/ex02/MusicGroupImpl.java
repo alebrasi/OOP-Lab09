@@ -1,8 +1,8 @@
 package it.unibo.oop.lab.lambda.ex02;
 
 import static java.util.stream.Collectors.toList;
-import static org.junit.jupiter.api.DynamicTest.stream;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,7 +52,13 @@ public final class MusicGroupImpl implements MusicGroup {
 
     @Override
     public Stream<String> albumInYear(final int year) {
-        return null;
+        List<String> tmp = new ArrayList<>();
+        this.albums.forEach((k, v) -> {
+            if (v == year) {
+                tmp.add(k);
+            }
+        });
+        return tmp.stream();
     }
 
     @Override
