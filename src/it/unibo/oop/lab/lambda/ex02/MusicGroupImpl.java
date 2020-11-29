@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -78,12 +79,14 @@ public final class MusicGroupImpl implements MusicGroup {
 
     @Override
     public Optional<String> longestSong() {
-        return null;
+        return this.songs.stream().map(s -> s).max(Comparator.comparing(s -> s.getDuration())).map(s -> s.getSongName());
     }
 
     @Override
     public Optional<String> longestAlbum() {
-        return null;
+        Map<Double, String> tmp = new HashMap<>();
+        this.albums.keySet().forEach(s -> tmp.put(songs.stream().filter(t -> s.equals(t.albumName.orElse(""))).collect(toList()).stream().mapToDouble(l -> l.getDuration()).sum(), s));
+        return Optional.of(tmp.get(tmp.keySet().stream().max(Comparator.comparing(i -> i)).get()));
     }
 
     private static final class Song {
